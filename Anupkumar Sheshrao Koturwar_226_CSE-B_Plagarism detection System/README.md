@@ -99,20 +99,3 @@ matplotlib, reportlab for visual reports
 
 BeautifulSoup, requests for crawling
 
-📄 License
-This project is released under the MIT License.
-
-Built for research, education, and academic integrity.
-
-yaml
-Copy
-Edit
-
----
-
-Let me know if you'd like:
-- 🐳 A `Dockerfile`
-- 🌍 A hosted deployment setup (Render, Heroku, AWS)
-- 📥 Admin dashboard to track user uploads
-
-You're ready to launch!
