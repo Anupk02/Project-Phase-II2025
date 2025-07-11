@@ -104,7 +104,11 @@ def highlight_matches(original_text, sources):
 
 
 # --- Config ---
-UPLOAD_FOLDER = os.path.join('static', 'uploads')
+# Base directory of the project (portable)
+BASE_DIR = os.path.dirname(os.path.abspath(_file_))
+
+# Upload folder with full absolute path
+UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static', 'uploads')
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'pdf'}
 MAX_WORKERS = os.cpu_count() or 4
 BLACKLISTED_DOMAINS = {'landacbio.ipn.mx'}
@@ -390,6 +394,10 @@ def index():
         elif file and allowed_file(file.filename):
             filename = sanitize_filename(file.filename)
             path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
+            # ✅ Ensure upload folder exists before saving file
+            os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+
             file.save(path)
             is_pdf = filename.lower().endswith('.pdf')
             if is_pdf:
