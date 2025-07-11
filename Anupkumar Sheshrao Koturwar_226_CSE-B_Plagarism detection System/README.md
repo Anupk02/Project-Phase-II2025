@@ -47,14 +47,9 @@ cd plagiarism-detector
 2. Install required packages
 Make sure you have Python 3.8+ installed.
 
-bash
-Copy
-Edit
+
 pip install -r requirements.txt
 3. Run the Flask app
-bash
-Copy
-Edit
 python app.py
 Then visit: http://localhost:5000
 🔍 How It Works
@@ -80,7 +75,6 @@ You can download a PDF report with pie chart and source list.
 ✅ Downloadable PDF with QR code to result
 
 🛡 Notes
-This project uses intelligent web crawling, not public APIs.
 
 Internet access is required to perform live similarity checking.
 
