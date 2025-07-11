@@ -28,11 +28,17 @@ This project is an advanced **web-based plagiarism detection system** that suppo
 ## 📁 Project Structure
 
 ├── app.py # Flask backend server
+
 ├── plagiarism_detector.py # Text plagiarism logic
+
 ├── search_cache.json # Cached search results
+
 ├── plagiarism_log.txt # Detailed logs of activity
+
 ├── requirements.txt # Python dependencies
+
 ├── static/ # CSS, JS, uploads, chart outputs
+
 └── templates/ index.html  # Web UI frontend
 
 ---
