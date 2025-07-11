@@ -26,15 +26,6 @@ CSE_KEYS = [
     {"key": "AIzaSyC1LUeswH338fvtxKAmms3Hm9HRBf88lko", "cx": "00e7ff844adbe438d"},
     {"key": "AIzaSyBDHixD00KBV98r9fOfKAqhwBt4sNXec50", "cx": "e2dc1d634907e43a1"},
     {"key": "AIzaSyCqZ5G5RlV0Nd6279EXbrvSUcEPE5qzxac", "cx": "a2e7ce19669df4d61"},
-    {"key": "AIzaSyDxs-vZTjOeHmrQ0DiQJ7H9nbNkFlT6Twc", "cx": "0410614e20c86471d"},
-    {"key": "AIzaSyCT1Sb0gOUrrRvM6m0awISUPbhwh-Neevg", "cx": "33597f7e6e8a8494e"},
-    {"key": "AIzaSyCamZu50ooZSCWRxkrluVt-AzF7EgG2dVo", "cx": "556ca979a05d1495d"},
-    {"key": "AIzaSyD3vojhS4F5g6dc7C5VExDyQlZkQSiFFuE", "cx": "a651dad0007ac4fc8"},
-    {"key": "AIzaSyDHCkEqsSphUvsQsCYnmTjh4UuZPnaWu8o", "cx": "96a02bad5521b4104"},
-    {"key": "AIzaSyBa7E4etKHWbDB0KZdlHeh7YaN_W5lH_jc", "cx": "e7f273958448348fc"},
-    {"key": "AIzaSyDoVi9PvyQhEYjgD9FVGOy57_LW-4gPzaY", "cx": "673795c32609e4065"},
-    {"key": "AIzaSyDbfHW0ykwFNDGjMcRRYtoN2dnaV9mQsB8", "cx": "8699048b3e9144756"},
-    {"key": "AIzaSyCFqWVuPkIut9laT8VbXrJOXy6seYu442o", "cx": "8699048b3e9144756"},
 ]
 
 LOG_FILE = 'plagiarism_log.txt'
