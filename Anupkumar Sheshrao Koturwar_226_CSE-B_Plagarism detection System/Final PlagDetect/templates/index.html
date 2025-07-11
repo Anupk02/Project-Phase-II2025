@@ -1,0 +1,2093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlagDetect</title>
+<!-- Fonts and Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+
+
+<link rel="icon" href="{{ url_for('static', filename='your-logo.png') }}" type="image/png">
+
+<!-- Chart.js and Plugins -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+<!-- PDF and Canvas Libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<!-- Bootstrap JS (latest) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+.match-text {
+  display: -webkit-box;         /* Required for WebKit-based browsers */
+  display: box;                 /* Standard draft (not widely supported alone) */
+  -webkit-box-orient: vertical;
+  box-orient: vertical;         /* Standard draft */
+  -webkit-line-clamp: 4;        /* Limits to 4 lines */
+  line-clamp: 4;                /* Standard property */
+  overflow: hidden;             /* Prevents content spill */
+}
+
+
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --success: #4cc9f0;
+            --danger: #f72585;
+            --warning: #f8961e;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+        }
+        .highlight-color-1 { background-color: #fde68a; }  /* yellow */
+.highlight-color-2 { background-color: #a5f3fc; }  /* cyan */
+.highlight-color-3 { background-color: #fca5a5; }  /* pink */
+.highlight-color-4 { background-color: #c4b5fd; }  /* purple */
+.highlight-color-5 { background-color: #86efac; }  /* green */
+.highlight-color-6 { background-color: #fcd34d; }  /* gold */
+.highlight-color-7 { background-color: #fbbf24; }  /* orange */
+.highlighted-text {
+  background-color: #f8fafc;
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid #e2e8f0;
+  max-height: 500px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  font-family: 'Segoe UI', sans-serif;
+  line-height: 1.8;
+  font-size: 16px;
+}
+
+        body {
+            background-color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #334155;
+        }
+        
+       
+        
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+            border: none;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-header {
+            background-color: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1.25rem 1.5rem;
+            font-weight: 600;
+            font-size: 1.25rem;
+            color: var(--primary);
+        }
+        
+        .input-section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 2rem;
+        }
+        
+        .nav-tabs .nav-link {
+            border: none;
+            border-bottom: 3px solid transparent;
+            padding: 1rem 1.5rem;
+            color: var(--gray);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-tabs .nav-link.active {
+            color: var(--primary);
+            background-color: transparent;
+        }
+        
+        .nav-tabs .nav-link:hover:not(.active) {
+            color: var(--dark);
+            border-bottom: 3px solid #cbd5e1;
+        }
+        
+        textarea {
+            min-height: 200px;
+            border-radius: 8px;
+            padding: 1rem;
+            resize: vertical;
+            border: 1px solid #e2e8f0;
+            transition: border-color 0.3s ease;
+        }
+        
+        textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.15);
+            outline: none;
+        }
+        
+        .file-upload {
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            background-color: #f8fafc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        
+        .file-upload i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        .file-upload i:hover {
+            color: white;
+            border-color: var(--primary);
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            border-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary);
+            border-color: var(--primary);
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .result-card {
+            border-left: 4px solid var(--primary);
+        }
+        
+        .plagiarism-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            z-index: 10;
+        }
+        
+        .highlight {
+            background-color: rgba(248, 150, 30, 0.2);
+            padding: 0.1rem 0.2rem;
+            border-radius: 4px;
+            color: #b45309;
+            font-weight: 500;
+        }
+        
+        .source-match {
+            background-color: #f1f5f9;
+            border-left: 3px solid var(--primary);
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 1rem;
+        }
+        
+        .image-card {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .image-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        .image-card img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    max-height: 300px;
+     border-radius: 8px 8px 0 0;
+}
+        .image-card .card-body {
+            padding: 1rem;
+        }
+        
+        .score-meter {
+            height: 8px;
+            background-color: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+        
+        .score-meter .fill {
+            height: 100%;
+            background: linear-gradient(to right, #4ade80, var(--warning), var(--danger));
+            border-radius: 4px;
+        }
+        
+        .spinner {
+            width: 2.5rem;
+            height: 2.5rem;
+            border: 0.25em solid currentColor;
+            border-right-color: transparent;
+            border-radius: 50%;
+            animation: spinner 0.75s linear infinite;
+            display: inline-block;
+        }
+        
+        @keyframes spinner {
+            to { transform: rotate(360deg); }
+        }
+        .clamp-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  max-height: 6.5em;
+  transition: all 0.3s ease;
+}
+
+.clamp-text.expanded {
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  max-height: none;
+}
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .highlighted-text {
+            background-color: #f8fafc;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 1px solid #e2e8f0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 250px;
+            margin: 1rem 0;
+        }
+        
+      
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.75rem;
+            }
+                    .btn-outline-primary {
+            color: var(--primary);
+            border-color: var(--primary);
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+        }
+            .card-header {
+                padding: 1rem;
+                font-size: 1.1rem;
+            }
+            
+            .input-section {
+                padding: 1.5rem;
+            }
+        }
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, var(--primary), var(--accent));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, var(--primary-dark), var(--accent));
+}
+
+/* Navigation Bar Styles */
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--navbar-bg);
+  backdrop-filter: var(--glass-effect);
+  -webkit-backdrop-filter: var(--glass-effect); /* For Safari */
+  border-bottom: 1px solid var(--border-glow);
+  z-index: 1000;
+  transition: var(--transition-normal);
+  height: 70px;
+}
+
+
+
+/* Navbar Logo */
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+/* Navigation Links */
+.nav-link {
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(to right, rgb(6, 182, 212), rgb(99, 102, 241));
+  transition: width 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 80%;
+}
+
+.nav-link:hover {
+  color: var(--secondary);
+  text-shadow: 0 0 8px rgba(6, 182, 212, 0.3);
+}
+
+/* Mobile Navigation */
+#mobile-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+  transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#mobile-menu.open {
+  max-height: 300px; /* Adjust based on your menu height */
+}
+
+#mobile-menu-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+/* For the hamburger animation */
+#mobile-menu-button.active #line1 {
+  transform: translate(-50%, -50%) rotate(45deg);
+  transform-origin: center;
+}
+
+#mobile-menu-button.active #line2 {
+  opacity: 0;
+}
+
+#mobile-menu-button.active #line3 {
+  transform: translate(-50%, -50%) rotate(-45deg);
+  transform-origin: center;
+}
+
+#line1, #line2, #line3 {
+  transition: transform 0.3s ease, opacity 0.2s ease, background-color 0.3s ease;
+  transform-origin: center;
+}
+@media (min-width: 640px) {
+  .sm\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 768px) {
+  .md\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .md\:grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+  
+  /* Show desktop nav, hide mobile nav */
+  .mobile-only { display: none; }
+}
+@media (max-width: 767px) {
+  .desktop-only { display: none; }
+  
+  section {
+    padding: 4rem 0;
+  }
+  
+  .container {
+    padding: 0 1rem;
+  }
+  
+  #navbar {
+    height: auto;
+  }
+  
+  .nav-link::after {
+    display: none;
+  }
+}
+/* Background Decorations */
+.bg-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: 50px 50px;
+  background-image: 
+    linear-gradient(to right, rgba(6, 182, 212, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(6, 182, 212, 0.05) 1px, transparent 1px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.bg-glow {
+  position: fixed;
+  width: 60vw;
+  height: 60vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(6, 182, 212, 0.05) 50%, transparent 70%);
+  filter: blur(60px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.bg-glow.top-right {
+  top: -20%;
+  right: -20%;
+}
+
+.bg-glow.bottom-left {
+  bottom: -20%;
+  left: -20%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Header animation */
+.text-6xl {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+
+/* Enhance focus styles for accessibility */
+a:focus, button:focus {
+  outline: 2px solid rgba(6, 182, 212, 0.5);
+  outline-offset: 2px;
+}
+
+/* Style the scrollbar for a futuristic look */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #0891b2, #4f46e5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #06b6d4, #6366f1);
+}
+html, body {
+  overflow-x: hidden !important;     /* Prevent horizontal scroll */
+  max-width: 100vw;                  /* Prevent overflow beyond screen */
+  touch-action: pan-y;               /* Allow vertical scroll only */
+  overscroll-behavior-x: none;       /* Block side-scrolling chaining */
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;            /* Avoid accidental overflows */
+}
+@media (max-width: 400px) {
+    .btn-outline-primary {
+        padding: 10px 15px;
+
+    }
+}
+    </style>
+</head>
+<body>
+<div class="bg-white text-black font-['Space_Grotesk'] overflow-x-hidden">
+    <!-- Background elements -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute top-20 left-10 w-96 h-96 bg-indigo-900/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-10 right-10 w-80 h-80 bg-purple-900/10 rounded-full blur-3xl"></div>
+        <div class="absolute top-40 right-20 w-64 h-64 bg-cyan-900/10 rounded-full blur-3xl"></div>
+        
+        <!-- Decorative grid lines -->
+        <div class="absolute inset-0 grid grid-cols-12 opacity-5 pointer-events-none">
+            <div class="border-r border-cyan-500"></div>
+            <div class="border-r border-cyan-500"></div>
+            <div class="border-r border-cyan-500"></div>
+            <div class="border-r border-cyan-500"></div>
+            <div class="border-r border-cyan-500"></div>
+            <div class="border-r border-cyan-500"></div>
+            <div class="border-r border-cyan-500"></div>
+            <div class="border-r border-cyan-500"></div>
+            <div class="border-r border-cyan-500"></div>
+            <div class="border-r border-cyan-500"></div>
+            <div class="border-r border-cyan-500"></div>
+            <div class="border-r border-cyan-500"></div>
+        </div>
+        <div class="absolute inset-0 grid grid-rows-12 opacity-5 pointer-events-none">
+            <div class="border-b border-cyan-500"></div>
+            <div class="border-b border-cyan-500"></div>
+            <div class="border-b border-cyan-500"></div>
+            <div class="border-b border-cyan-500"></div>
+            <div class="border-b border-cyan-500"></div>
+            <div class="border-b border-cyan-500"></div>
+            <div class="border-b border-cyan-500"></div>
+            <div class="border-b border-cyan-500"></div>
+            <div class="border-b border-cyan-500"></div>
+            <div class="border-b border-cyan-500"></div>
+            <div class="border-b border-cyan-500"></div>
+            <div class="border-b border-cyan-500"></div>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md transition-all duration-300"
+     style="
+        background-color: rgba(226, 232, 240, 0.82);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+        border-bottom: 2px solid black;  /* 👈 This is your black border */
+     ">
+
+
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="relative mr-2">
+                        <div class="absolute inset-0 bg-cyan-400/30 rounded-md blur-sm"></div>
+                        <div class="w-10 h-10 rounded-md bg-gradient-to-br from-indigo-600 to-purple-600 border border-indigo-400/30 flex items-center justify-center relative shadow-lg shadow-indigo-800/20">
+                            <div class="absolute inset-[3px] bg-white rounded-[4px] flex items-center justify-center overflow-hidden">
+                                <div class="absolute inset-0 bg-gradient-to-br from-indigo-900/20 to-purple-900/20"></div>
+                                <div class="font-bold text-lg bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">PD</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-xl font-medium bg-gradient-to-r from-indigo-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent flex items-center">
+                        PlagDetect
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-1">
+                    <a href="#home" class="nav-link text-black-300 hover:text-cyan-400 px-4 py-2 rounded-md transition-colors duration-200">Home</a>
+                    <a href="#demo" class="nav-link text-black-300 hover:text-cyan-400 px-4 py-2 rounded-md transition-colors duration-200">Check plagiarism</a>                    
+                    <a href="#features" class="nav-link text-black-300 hover:text-cyan-400 px-4 py-2 rounded-md transition-colors duration-200">Features</a>
+                    <a href="#about" class="nav-link text-black-300 hover:text-cyan-400 px-4 py-2 rounded-md transition-colors duration-200">How It Works</a>
+
+            
+
+                </div>
+
+                <!-- Mobile Navigation Button -->
+                <div class="flex md:hidden">
+                    <button id="mobile-menu-button" class="relative w-10 h-10 focus:outline-none group" aria-label="Toggle menu">
+                        <div class="absolute w-5 transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2">
+                            <span class="block h-0.5 w-5 bg-cyan-400 mb-1 transform transition duration-300 ease-in-out" id="line1"></span>
+                            <span class="block h-0.5 w-5 bg-cyan-400 mb-1 transform transition duration-300 ease-in-out" id="line2"></span>
+                            <span class="block h-0.5 w-5 bg-cyan-400 transform transition duration-300 ease-in-out" id="line3"></span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                <div class="pt-2 pb-4 space-y-1">
+                    <a href="#home" class="mobile-nav-link block text-black-300 hover:text-cyan-400 hover:bg-gray-800/50 px-4 py-2 rounded-md transition-colors duration-200">Home</a>
+                    <a href="#features" class="mobile-nav-link block text-black-300 hover:text-cyan-400 hover:bg-gray-800/50 px-4 py-2 rounded-md transition-colors duration-200">Features</a>
+                    <a href="#about" class="mobile-nav-link block text-black-300 hover:text-cyan-400 hover:bg-gray-800/50 px-4 py-2 rounded-md transition-colors duration-200">How It Works</a>
+                    <a href="#demo" class="mobile-nav-link block text-black-300 hover:text-cyan-400 hover:bg-gray-800/50 px-4 py-2 rounded-md transition-colors duration-200">Check plagiarism</a>
+
+                    <div class="px-4 pt-2">
+                        <a href="#demo" style="text-decoration: none;">
+                        <button class="contact-btn w-full px-4 py-2 bg-gradient-to-r from-indigo-700 to-purple-700 rounded-lg text-black text-sm font-medium flex items-center justify-center gap-2 hover:from-indigo-600 hover:to-purple-600 transition-all duration-300">
+                            <span class="bg-gradient-to-r from-cyan-300 to-indigo-300 bg-clip-text text-transparent">Check plagiarism</span>
+                        </button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Sections -->
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="min-h-screen flex items-center justify-center relative pt-20">
+            <div class="container mx-auto px-6 py-20">
+                <div class="flex flex-col items-center text-center">
+                    <div class="relative mb-4">
+                        <div class="absolute inset-0 bg-cyan-500/20 rounded-full blur-3xl"></div>
+                        <div class="text-6xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-indigo-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent pb-2 relative">
+                            Plagiarism Detection
+                        </div>
+                    </div>
+                    <p class="text-xl md:text-2xl text-black-400 max-w-3xl mb-8">
+                         Plagiarism detection system that analyzes both text and images using sophisticated algorithms
+                    </p>
+                    <div class="flex gap-4 flex-wrap justify-center">
+   <div class="relative group">
+    <!-- Gradient glow effect -->
+    <div class="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
+    
+    <!-- Main button --><a href="#demo" style="text-decoration: none;">
+    <button class="relative px-6 py-3 bg-white rounded-lg text-black font-medium flex items-center justify-center gap-2 transition-all duration-300 hover:bg-gray-800 active:scale-95">
+        
+        <span class="bg-gradient-to-r from-cyan-300 to-indigo-300 bg-clip-text text-transparent">
+             Check plagiarism
+        </span>
+    </button></a>
+</div>
+                    </div>
+                </div>
+            </div>
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+                <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </div>
+        </section>
+<section id="demo" class="min-h-screen flex items-center relative py-20">
+    
+    <div class="container">
+                    <div class="text-center mb-12">
+                <div class="inline-block mb-3">
+                    <div class="text-xs text-cyan-400 tracking-widest uppercase mb-1">Try It Out</div>
+                    <div class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Plagiarism Checker</div>
+                </div>
+                <div class="w-20 h-1 bg-gradient-to-r from-cyan-500 to-indigo-500 mx-auto"></div>
+            </div>
+        <!-- Input Section -->
+        <section class="input-section card">
+            <ul class="nav nav-tabs mb-4" id="inputTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="text-tab" data-bs-toggle="tab" data-bs-target="#text" type="button" role="tab">
+                        <i class="fas fa-align-left me-2"></i>Text Input
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="file-tab" data-bs-toggle="tab" data-bs-target="#file" type="button" role="tab">
+                        <i class="fas fa-file-pdf me-2"></i>PDF Upload
+                    </button>
+                </li>
+            </ul>
+            
+            <div class="tab-content" id="inputTabsContent">
+                <!-- Text Input Tab -->
+                <div class="tab-pane fade show active" id="text" role="tabpanel">
+                    <form id="textForm">
+                        <div class="mb-3">
+                            <label for="textInput" class="form-label fw-medium">Enter Text to Check</label>
+                            <textarea class="form-control" id="textInput" placeholder="Type or paste your content here to check for plagiarism..." required></textarea>
+                            <div class="d-flex justify-content-between mt-2">
+                                <div class="text-muted small">
+                                    <span id="wordCount">0</span> words | 
+                                    <span id="charCount">0</span> characters
+                                </div>
+                                <button type="button" class="btn btn-sm btn-outline-secondary" id="clearText">
+                                    <i class="fas fa-times me-1"></i>Clear
+                                </button>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end gap-2 mt-4">
+                            <button type="reset" class="btn btn-outline-secondary">Reset</button>
+                            <button type="submit" class="btn btn-primary" id="checkTextBtn">
+                                <i class="fas fa-search me-2"></i>Check Plagiarism for Text
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- File Input Tab -->
+                <div class="tab-pane fade" id="file" role="tabpanel">
+                    <form id="fileForm">
+                        <div class="mb-3">
+                            <label class="form-label fw-medium">Upload PDF File</label>
+                            <div class="file-upload" id="dropArea">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <h5 class="mb-2">Drag & Drop your PDF file here</h5>
+                                <p class="text-muted mb-3">or</p>
+                                <button type="button" class="btn btn-outline-primary" id="browseBtn">
+                                    <i class="fas fa-folder-open me-2"></i>Browse Files
+                                </button>
+                                <input type="file" id="fileInput" accept=".pdf" class="d-none">
+                                <div class="mt-3" id="filePreview"></div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end gap-2 mt-4">
+                            <button type="reset" class="btn btn-outline-secondary" id="resetFileBtn">Reset</button>
+                            <button type="submit" class="btn btn-primary" id="checkFileBtn" disabled>
+                                <i class="fas fa-search me-2"></i>Check Plagiarism for File
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Loading Indicator -->
+        <div class="text-center my-5 d-none" id="loadingIndicator">
+            <div class="spinner text-primary" role="status"></div>
+            <p class="mt-3">Analyzing content for plagiarism...</p>
+        </div>
+
+        <!-- Results Section -->
+        <section class="d-none" id="resultsSection">
+            <!-- Summary Card -->
+            <div class="card result-card">
+                <div class="card-header d-flex align-items-center">
+                    <i class="fas fa-clipboard-check me-3"></i>
+                    Analysis Summary
+                    <span class="badge bg-primary ms-3" id="resultTypeBadge">Text</span>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-4 mb-md-0">
+                            <div class="d-flex align-items-center">
+                                <div class="display-5 fw-bold text-primary" id="plagiarismPercent">0%</div>
+                                <div class="ms-3">
+                                    <h5 class="mb-0">Plagiarism Detected</h5>
+                                    <p class="text-muted mb-0" id="summaryMessage"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="chart-container">
+                                <canvas id="summaryChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-muted small mb-0" style="padding-left: 2rem;">
+                    <i class="fas fa-info-circle me-1"></i>
+                    For getting more detailed results, please download the full report.
+                </p>
+                
+            <!-- Text Results for getting all vispble remove all class with .d-none and and style with display none -->
+            <div class="card" id="textResultsCard" >
+                <div class="card-header">
+                    <i class="fas fa-align-left me-2"></i>
+                    Text Analysis Details
+                </div>
+                <div class="card-body ">
+                    <div class="mb-4" >
+                        <h5 class="mb-3">Original Text with Highlighted Matches</h5>
+<div class="highlighted-text" id="highlightedText">
+    <p class="text-center text-muted">No text to display</p>
+</div>
+
+                        </div>
+                    </div>
+                    <div class="mb-4" >
+                        <h5 class="mb-3">Matched Sources</h5>
+                        <div class="alert alert-info d-flex align-items-center">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Showing top matches based on content similarity
+                        </div>
+                        <div id="sourcesList"></div>
+                    </div>
+                   
+                </div>
+            </div>
+
+            <!-- Image Results -->
+            <div class="card d-none" id="imageResultsCard">
+                <div class="card-header">
+                    <i class="fas fa-images me-2"></i>
+                    Image Analysis Details
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-6 mb-4 mb-md-0">
+                            <div class="d-flex">
+                                <div class="me-4 text-center">
+                                    <div class="display-5 fw-bold" id="totalImages">0</div>
+                                    <div class="text-muted">Total Images</div>
+                                </div>
+                                <div class="me-4 text-center">
+                                    <div class="display-5 fw-bold text-success" id="originalImages">0</div>
+                                    <div class="text-muted">Original</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="display-5 fw-bold text-danger" id="plagiarizedImages">0</div>
+                                    <div class="text-muted">Plagiarized</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="chart-container">
+                                <canvas id="imageChart"></canvas>
+                            </div>
+                        </div>
+                <p class="text-muted small mb-0" style="padding-left: 2rem;">
+                    <i class="fas fa-info-circle me-1"></i>
+                    For getting more detailed results, please download the full report.
+                </p>
+                    </div>
+                 <h2 > Report Actions </h2>
+                    <h5 class="mb-3" >Plagiarized Images</h5>
+                    <div id="imageResultsList" ></div>
+                </div>
+            </div>
+            
+            <!-- Report Actions -->
+            <div class="d-flex justify-content-end gap-2 mt-4" style="padding-bottom: 20px; padding-right: 20px;">	
+                <button class="btn btn-outline-primary" id="newCheckBtn">
+                    <i class="fas fa-plus me-2"></i>New Check
+                </button>
+   
+
+  <button class="btn btn-primary" id="downloadReportBtn">
+    <i class="fas fa-download me-2"></i>Download Full Report
+  </button>
+
+
+
+            </div>
+        </section>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container position-fixed top-0 end-0 p-3"></div>
+
+    
+
+    <script>
+        // DOM Elements
+        const textForm = document.getElementById('textForm');
+        const fileForm = document.getElementById('fileForm');
+        const textInput = document.getElementById('textInput');
+        const fileInput = document.getElementById('fileInput');
+        const browseBtn = document.getElementById('browseBtn');
+        const dropArea = document.getElementById('dropArea');
+        const filePreview = document.getElementById('filePreview');
+        const resetFileBtn = document.getElementById('resetFileBtn');
+        const clearTextBtn = document.getElementById('clearText');
+        const checkFileBtn = document.getElementById('checkFileBtn');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const resultsSection = document.getElementById('resultsSection');
+        const textResultsCard = document.getElementById('textResultsCard');
+        const imageResultsCard = document.getElementById('imageResultsCard');
+        const wordCount = document.getElementById('wordCount');
+        const charCount = document.getElementById('charCount');
+        const plagiarismPercent = document.getElementById('plagiarismPercent');
+        const summaryMessage = document.getElementById('summaryMessage');
+        const resultTypeBadge = document.getElementById('resultTypeBadge');
+        const highlightText = document.getElementById('highlightedText');
+        const sourcesList = document.getElementById('sourcesList');
+        const totalImages = document.getElementById('totalImages');
+        const originalImages = document.getElementById('originalImages');
+        const plagiarizedImages = document.getElementById('plagiarizedImages');
+        const imageResultsList = document.getElementById('imageResultsList');
+        const newCheckBtn = document.getElementById('newCheckBtn');
+        const downloadReportBtn = document.getElementById('downloadReportBtn');
+        
+        // Global variables
+        let summaryChart = null;
+        let imageChart = null;
+        let currentAnalysisType = null;
+        let currentFile = null;
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize text input counters
+            updateTextCounters();
+            
+            // Event listeners
+            textInput.addEventListener('input', updateTextCounters);
+            clearTextBtn.addEventListener('click', clearTextInput);
+            browseBtn.addEventListener('click', () => fileInput.click());
+            fileInput.addEventListener('change', handleFileSelect);
+            resetFileBtn.addEventListener('click', resetFileInput);
+            textForm.addEventListener('submit', handleTextSubmit);
+            fileForm.addEventListener('submit', handleFileSubmit);
+            newCheckBtn.addEventListener('click', resetForm);
+            downloadReportBtn.addEventListener('click', () => {
+            new bootstrap.Modal(document.getElementById('feedbackModal')).show();
+    });
+
+            
+            // Drag and drop events
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, highlight, false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, unhighlight, false);
+            });
+            
+            dropArea.addEventListener('drop', handleDrop, false);
+        });
+        
+        // Helper functions
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
+        function highlight() {
+            dropArea.classList.add('bg-primary', 'bg-opacity-10');
+        }
+        
+        function unhighlight() {
+            dropArea.classList.remove('bg-primary', 'bg-opacity-10');
+        }
+        
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            
+            if (files.length > 0 && files[0].type === 'application/pdf') {
+                fileInput.files = files;
+                handleFileSelect();
+            } else {
+                showToast('Please upload a PDF file', 'danger');
+            }
+        }
+        
+        function updateTextCounters() {
+            const text = textInput.value.trim();
+            const words = text ? text.split(/\s+/).length : 0;
+            const chars = text.length;
+            
+            wordCount.textContent = words;
+            charCount.textContent = chars;
+        }
+        
+        function clearTextInput() {
+            textInput.value = '';
+            updateTextCounters();
+        }
+        
+        function resetFileInput() {
+            fileInput.value = '';
+            filePreview.innerHTML = '';
+            checkFileBtn.disabled = true;
+            currentFile = null;
+        }
+        
+        function handleFileSelect() {
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                
+                if (file.type !== 'application/pdf') {
+                    showToast('Please select a PDF file', 'danger');
+                    resetFileInput();
+                    return;
+                }
+                
+                currentFile = file;
+                
+                filePreview.innerHTML = `
+                    <div class="alert alert-success d-flex align-items-center">
+                        <i class="fas fa-file-pdf me-3 fs-3 text-danger"></i>
+                        <div>
+                            <div class="fw-medium">${file.name}</div>
+                            <div class="text-muted small">${formatFileSize(file.size)}</div>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-outline-danger ms-auto" id="removeFileBtn">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+                
+                document.getElementById('removeFileBtn').addEventListener('click', resetFileInput);
+                checkFileBtn.disabled = false;
+            }
+        }
+        
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+        
+        function showToast(message, type = 'success') {
+            const toastContainer = document.querySelector('.toast-container');
+            const toastId = 'toast-' + Date.now();
+            
+            const toast = document.createElement('div');
+            toast.className = `toast show align-items-center text-bg-${type} border-0`;
+            toast.setAttribute('role', 'alert');
+            toast.setAttribute('aria-live', 'assertive');
+            toast.setAttribute('aria-atomic', 'true');
+            toast.id = toastId;
+            
+            toast.innerHTML = `
+                <div class="d-flex">
+                    <div class="toast-body">
+                        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-triangle'} me-2"></i>
+                        ${message}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            `;
+            
+            toastContainer.appendChild(toast);
+            
+            // Auto remove toast after 5 seconds
+            setTimeout(() => {
+                const toastElement = document.getElementById(toastId);
+                if (toastElement) {
+                    toastElement.classList.remove('show');
+                    setTimeout(() => toastElement.remove(), 300);
+                }
+            }, 5000);
+        }
+        
+        function showLoading(show = true) {
+            if (show) {
+                loadingIndicator.classList.remove('d-none');
+            } else {
+                loadingIndicator.classList.add('d-none');
+            }
+        }
+        
+        function handleTextSubmit(e) {
+            e.preventDefault();
+            
+            const text = textInput.value.trim();
+            if (!text) {
+                showToast('Please enter text to check', 'danger');
+                return;
+            }
+            
+            currentAnalysisType = 'text';
+            analyzeTextContent(text);
+        }
+        
+        function handleFileSubmit(e) {
+            e.preventDefault();
+            
+            if (!fileInput.files.length) {
+                showToast('Please select a PDF file', 'danger');
+                return;
+            }
+            
+            currentAnalysisType = 'file';
+            analyzeFileContent(fileInput.files[0]);
+        }
+        
+function analyzeTextContent(text) {
+    showLoading(true);
+
+    fetch('/check_online', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `text=${encodeURIComponent(text)}`
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Server error during plagiarism check');
+        }
+        return response.json();
+    })
+    .then(data => {
+        showLoading(false);
+
+        // ✅ Handle bad or incomplete data
+        if (!data.text_results || typeof data.text_results.highlighted !== "string") {
+            showToast("Unexpected server response. Try again.", "danger");
+            return;
+        }
+
+        showTextResults(data, text);
+    })
+    .catch(error => {
+        showLoading(false);
+        showToast('Error analyzing text: ' + error.message, 'danger');
+        console.error('Error:', error);
+    });
+}
+
+function analyzeFileContent(file) {
+    showLoading(true);
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    fetch('/', {
+        method: 'POST',
+        body: formData,
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest' // 👈 Important! Flask will check this
+    }
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(results => {
+    showLoading(false);
+    showFileResults(results);
+  })
+  .catch(error => {
+    showLoading(false);
+    showToast('Error analyzing file: ' + error.message, 'danger');
+    console.error('Error:', error);
+  });
+}
+
+        
+function showTextResults(data, originalText) {
+    // ✅ Grab the updated format (without breaking old logic)
+    const result = data.text_results || data;
+
+    // Hide input section, show results
+    document.getElementById('inputTabs').classList.add('d-none');
+    resultsSection.classList.remove('d-none');
+
+    // Set result type
+    resultTypeBadge.textContent = 'Text';
+
+    // Display summary
+    const plagiarismPercentage = result.overall || result.percentage_copied || 0;
+    plagiarismPercent.textContent = `${plagiarismPercentage}%`;
+
+    if (plagiarismPercentage < 10) {
+        summaryMessage.textContent = 'No significant plagiarism detected';
+    } else {
+        summaryMessage.textContent = `Plagiarism detected in ${plagiarismPercentage}% of content`;
+    }
+
+    // Render summary chart
+    renderSummaryChart(plagiarismPercentage);
+
+    // Show text results
+    textResultsCard.classList.remove('d-none');
+    imageResultsCard.classList.add('d-none');
+
+    // ✅ Highlighted section (new backend format)
+    highlightText.innerHTML = result.highlighted || '<p class="text-center text-muted">No text to display</p>';
+
+    renderSources(result.sources || []);
+
+    // Scroll to results
+    resultsSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+        
+function showFileResults(data) {
+  window.lastFileResult = data;
+  // Hide input section, show results
+  document.getElementById('inputTabs').classList.add('d-none');
+  resultsSection.classList.remove('d-none');
+
+  // Set result type
+  resultTypeBadge.textContent = 'PDF';
+
+  // Check if we have text results
+  if (data.text_results) {
+    const textData = data.text_results;
+    const plagiarismPercentage = textData.overall || 0;
+
+    plagiarismPercent.textContent = `${plagiarismPercentage}%`;
+
+    if (plagiarismPercentage < 10) {
+      summaryMessage.textContent = 'No significant plagiarism detected';
+    } else {
+      summaryMessage.textContent = `Plagiarism detected in ${plagiarismPercentage}% of content`;
+    }
+
+    renderSummaryChart(plagiarismPercentage);
+    highlightText.innerHTML = textData.highlighted || '<p class="text-center text-muted">No text to display</p>';
+    textResultsCard.classList.remove('d-none');
+    renderSources(textData.sources || []);
+  }
+
+  // Check if we have image results
+  if (data.image_results) {
+    const imageData = data.image_results;
+    const totalImgs = imageData.total || 0;
+    const plagiarizedImgs = imageData.plag_count || 0;
+    const overallScore = imageData.overall_score || 0;
+
+    if (!data.text_results) {
+      plagiarismPercent.textContent = `${overallScore}%`;
+      summaryMessage.textContent = `Plagiarism detected in ${plagiarizedImgs} of ${totalImgs} images`;
+      renderSummaryChart(overallScore);
+    }
+
+    imageResultsCard.classList.remove('d-none');
+    totalImages.textContent = totalImgs;
+    originalImages.textContent = totalImgs - plagiarizedImgs;
+    plagiarizedImages.textContent = plagiarizedImgs;
+    renderImageChart(totalImgs - plagiarizedImgs, plagiarizedImgs);
+    renderImageResults(imageData);
+  }
+
+  // ✅ Only stop loading once everything is shown
+  showLoading(false);
+
+  // Scroll to results
+  resultsSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+        
+        function renderSummaryChart(plagiarismPercentage) {
+            const ctx = document.getElementById('summaryChart').getContext('2d');
+            
+            if (summaryChart) {
+                summaryChart.destroy();
+            }
+            
+            summaryChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Original', 'Plagiarized'],
+                    datasets: [{
+                        data: [100 - plagiarismPercentage, plagiarismPercentage],
+                        backgroundColor: ['#4ade80', '#f87171'],
+                        borderWidth: 0,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true,
+                                pointStyle: 'circle',
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+        }
+        
+        function renderImageChart(original, plagiarized) {
+            const ctx = document.getElementById('imageChart').getContext('2d');
+            
+            if (imageChart) {
+                imageChart.destroy();
+            }
+            
+            imageChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Original Images', 'Plagiarized Images'],
+                    datasets: [{
+                        data: [original, plagiarized],
+                        backgroundColor: ['#4ade80', '#f87171'],
+                        borderWidth: 0,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true,
+                                pointStyle: 'circle',
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+        }
+        
+
+
+        function escapeRegExp(string) {
+            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+        
+ function renderSources(sources) {
+    const sourcesList = document.getElementById("sourcesList");
+
+    if (!sourcesList) {
+        console.error("❌ Element #sourcesList not found.");
+        return;
+    }
+
+    if (!sources || sources.length === 0) {
+        sourcesList.innerHTML = `
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle me-2"></i>
+                No matching sources found. Your content appears to be original.
+            </div>
+        `;
+        return;
+    }
+
+    let sourcesHTML = '';
+
+    // Sort by length of matching text (longest first) and limit to top 7
+    const topSources = [...sources]
+        .sort((a, b) => b.matching_text.length - a.matching_text.length)
+        .slice(0, 7);
+
+    topSources.forEach((source, index) => {
+        const similarityScore = source.score?.toFixed(2) || '0.00';
+
+        sourcesHTML += `
+            <div class="source-match border rounded p-3 mb-3 shadow-sm">
+                <div class="d-flex align-items-start mb-2">
+                    <span class="badge bg-primary rounded-pill me-2">${index + 1}</span>
+                    <a href="${source.source}" target="_blank" class="text-truncate text-primary text-decoration-none">
+                        ${source.source}
+                    </a>
+                </div>
+                <p class="match-text mb-1" title="${source.matching_text}">
+                    "${source.matching_text}"
+                </p>
+                <div class="text-muted small">
+                    Plagiarism from this source: 
+                    <span class="badge bg-warning text-dark">
+                    ${Math.min(100, Math.ceil(similarityScore))}%
+                    </span>
+
+                </div>
+            </div>
+        `;
+    });
+
+    sourcesList.innerHTML = sourcesHTML;
+}
+
+        
+      function renderImageResults(data) {
+    if (!data || !data.image_results || data.image_results.length === 0) {
+        imageResultsList.innerHTML = `
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle me-2"></i>
+                All images in the PDF are original. No plagiarism detected.
+            </div>
+        `;
+        return;
+    }
+
+    let imagesHTML = '';
+
+    data.image_results.forEach((image, index) => {
+        if (image.score < 30) return; // Only show images with significant plagiarism
+
+        let scoreClass = 'bg-success';
+        if (image.score > 70) scoreClass = 'bg-danger';
+        else if (image.score > 40) scoreClass = 'bg-warning';
+
+        imagesHTML += `
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Left: Main Image -->
+                        <div class="col-md-5 mb-3 mb-md-0">
+                            <div class="image-card" data-score="${image.score}" data-details='${JSON.stringify(image.details)}'>
+                                <div class="position-relative">
+                                    <span class="badge ${scoreClass} plagiarism-badge">${image.score}% match</span>
+                                    <img src="${image.path}" alt="Detected image">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right: Matched Sources -->
+                        <div class="col-md-7">
+                            <h6 class="mb-3">Matched Sources (Top 4):</h6>
+                            <div class="list-group">
+        `;
+
+        const topMatches = image.details.slice(0, 4);
+        topMatches.forEach((match, i) => {
+            imagesHTML += `
+                <div class="list-group-item mb-2">
+<div class="fw-semibold mb-1">
+  ${i + 1}. 
+  <a href="${match.url}" target="_blank" class="text-truncate d-inline-block" style="max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+    ${match.url}
+  </a>
+</div>
+
+                    <div class="text-muted small">
+                        SSIM: <span class="badge bg-primary">${match.ssim}</span> 
+                        ORB: <span class="badge bg-warning text-dark">${match.orb}</span>
+                    </div>
+                </div>
+            `;
+        });
+
+        imagesHTML += `
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+
+    if (!imagesHTML) {
+        imagesHTML = `
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle me-2"></i>
+                All images in the PDF are original. No plagiarism detected.
+            </div>
+        `;
+    }
+
+    imageResultsList.innerHTML = imagesHTML;
+}
+
+        function resetForm() {
+            // Reset forms
+            textForm.reset();
+            fileForm.reset();
+            
+            // Reset UI elements
+            clearTextInput();
+            resetFileInput();
+            resultsSection.classList.add('d-none');
+            document.getElementById('inputTabs').classList.remove('d-none');
+            textResultsCard.classList.add('d-none');
+            imageResultsCard.classList.add('d-none');
+            
+            // Destroy charts
+            if (summaryChart) {
+                summaryChart.destroy();
+                summaryChart = null;
+            }
+            
+            if (imageChart) {
+                imageChart.destroy();
+                imageChart = null;
+            }
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+function downloadReport() {
+  showToast('Generating report...', 'info');
+
+  let payload = {
+    type: currentAnalysisType, // 'text' or 'file'
+    filename: currentAnalysisType === 'file' ? currentFile?.name || 'uploaded.pdf' : 'user-input'
+  };
+
+  if (currentAnalysisType === 'text') {
+    payload.text_results = {
+      overall: parseFloat(plagiarismPercent.textContent),
+      highlighted: highlightText.innerHTML,
+      sources: []
+    };
+
+    document.querySelectorAll('#sourcesList .source-match').forEach(matchEl => {
+      const source = matchEl.querySelector('a')?.href || '';
+      const matchText = matchEl.querySelector('p')?.innerText || '';
+      payload.text_results.sources.push({
+        source: source,
+        matching_text: matchText
+      });
+    });
+
+  } else if (currentAnalysisType === 'file') {
+    const imageCards = document.querySelectorAll('#imageResultsList .image-card');
+    const imageData = [];
+
+    imageCards.forEach(card => {
+      const score = parseFloat(card.getAttribute('data-score')) || 0;
+      const details = JSON.parse(card.getAttribute('data-details') || '[]');
+      const path = card.querySelector('img')?.getAttribute('src') || '';
+      imageData.push({ score, path, details });
+    });
+
+    payload.image_results = imageData;
+
+    payload.total = parseInt(totalImages.textContent || '0');
+    payload.plag_count = parseInt(plagiarizedImages.textContent || '0');
+    payload.overall_score = parseFloat(plagiarismPercent.textContent.replace('%', '') || '0');
+
+    // ✅ Optional: Include text if extracted from file
+    if (window.lastFileResult?.text_results) {
+      payload.text_results = window.lastFileResult.text_results;
+    }
+  }
+
+  fetch('/generate-report', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload)
+  })
+  .then(response => {
+    if (!response.ok) throw new Error('Report generation failed');
+    return response.blob();
+  })
+  .then(blob => {
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'plagiarism-report.pdf';
+    link.click();
+    window.URL.revokeObjectURL(url);
+  })
+  .catch(err => {
+    console.error(err);
+    showToast('Failed to generate report.', 'danger');
+  });
+}
+
+
+function extractTextResults() {
+  const result = {
+    overall: parseFloat(plagiarismPercent.textContent),
+    highlighted: highlightText.innerHTML,
+    sources: []
+  };
+  document.querySelectorAll('#sourcesList .source-match').forEach(matchEl => {
+    const source = matchEl.querySelector('a')?.href || '';
+    const matchText = matchEl.querySelector('p')?.innerText || '';
+    result.sources.push({ source, matching_text: matchText });
+  });
+  return result;
+}
+
+
+    </script>
+   
+
+<!-- Feedback Modal -->
+<div class="modal fade" id="feedbackModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <form class="modal-content needs-validation" id="feedbackForm" novalidate>
+      <div class="modal-header">
+        <h5 class="modal-title">Share Feedback, Unlock Your detailed Plagiarism Report
+
+</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="fb_name" class="form-label">Name</label>
+          <input type="text" class="form-control" id="fb_name" required>
+          <div class="invalid-feedback">Please enter your name.</div>
+        </div>
+        <div class="mb-3">
+          <label for="fb_email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="fb_email" required>
+          <div class="invalid-feedback">Please enter a valid email address.</div>
+        </div>
+        <div class="mb-3">
+          <label for="fb_feedback" class="form-label">Feedback</label>
+          <textarea class="form-control" id="fb_feedback" rows="4" required></textarea>
+          <div class="invalid-feedback">Please enter your feedback.</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary w-100">Submit & Download Report</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const feedbackForm = document.getElementById('feedbackForm');
+
+  if (!feedbackForm) return;
+feedbackForm.addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  if (!feedbackForm.checkValidity()) {
+    feedbackForm.classList.add('was-validated');
+    return;
+  }
+
+  const name = document.getElementById('fb_name').value.trim();
+  const email = document.getElementById('fb_email').value.trim();
+  const feedback = document.getElementById('fb_feedback').value.trim();
+
+  const formData = new FormData();
+  formData.append('entry.1131229778', name);
+  formData.append('entry.290463255', email);
+  formData.append('entry.419098536', feedback);
+
+  let summary = '';
+  if (currentAnalysisType === 'file') {
+    const fileName = currentFile?.name || 'Unknown';
+    const textScore = parseFloat(plagiarismPercent.textContent) || 0;
+    const totalImgs = parseInt(totalImages.textContent || '0');
+    const plagImgs = parseInt(plagiarizedImages.textContent || '0');
+    const imgPercent = totalImgs > 0 ? ((plagImgs / totalImgs) * 100).toFixed(1) : 0;
+    summary = `Filename: ${fileName}\nText Plagiarism: ${textScore}%\nImage Plagiarism: ${plagImgs} of ${totalImgs} plagiarized (${imgPercent}%)`;
+  } else if (currentAnalysisType === 'text') {
+    const textScore = parseFloat(plagiarismPercent.textContent) || 0;
+    summary = `Text Submission\nText Plagiarism: ${textScore}%`;
+  }
+
+  formData.append('entry.1847527900', summary); // Google form summary field
+
+  // Submit feedback to Google Form (no-cors)
+  fetch('https://docs.google.com/forms/d/e/1FAIpQLSehwZmDtWk9L9lpJ9vrCK1ivHlvqLM9Fpf2fuzkKoE1iazonQ/formResponse', {
+    method: 'POST',
+    mode: 'no-cors',
+    body: formData
+   }).then(() => {
+    // ✅ Close Modal
+    bootstrap.Modal.getInstance(document.getElementById('feedbackModal')).hide();
+    feedbackForm.reset();
+    feedbackForm.classList.remove('was-validated');
+
+    // ✅ Now safely trigger the report download
+    downloadReport(); // ✅ USE THIS ONE
+
+
+    showToast("Thank you for your feedback!", 'success');
+  }).catch(() => {
+    showToast("Error submitting feedback. Please try again.", 'danger');
+  });
+});
+
+});
+</script>
+</section>
+        <!-- Features Section -->
+        <section id="features" class="min-h-screen flex items-center relative py-20">
+            <div class="container mx-auto px-6">
+                <div class="max-w-5xl mx-auto">
+                    <div class="text-center mb-12">
+                        <div class="inline-block mb-3">
+                            <div class="text-xs text-cyan-400 tracking-widest uppercase mb-1">Key Features</div>
+                            <div class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Precise Detection</div>
+                        </div>
+                        <div class="w-20 h-1 bg-gradient-to-r from-cyan-500 to-indigo-500 mx-auto"></div>
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <!-- Feature 1 -->
+                        <div class="relative group">
+                            <div class="absolute inset-0 bg-indigo-500/5 rounded-lg opacity-0 group-hover:opacity-100 blur-sm transition-opacity"></div>
+                            <div class="bg-gradient-to-br from-gray-900 to-gray-950 border border-indigo-500/20 rounded-lg p-6 relative z-10 h-full group-hover:border-indigo-500/40 transition-all duration-300">
+                                <div class="flex flex-col h-full">
+                                    <div class="flex items-center mb-4">
+                                        <div class="w-10 h-10 rounded bg-indigo-900/60 flex items-center justify-center mr-3 group-hover:bg-indigo-800/70 transition-colors">
+                                            <svg class="w-5 h-5 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="font-medium text-lg text-indigo-300 group-hover:text-indigo-200 transition-colors">PDF Analysis</div>
+                                    </div>
+                                    <p class="text-gray-400 mb-4">Extract and analyze text and images from PDF documents with high accuracy.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Feature 2 -->
+                        <div class="relative group">
+                            <div class="absolute inset-0 bg-purple-500/5 rounded-lg opacity-0 group-hover:opacity-100 blur-sm transition-opacity"></div>
+                            <div class="bg-gradient-to-br from-gray-900 to-gray-950 border border-purple-500/20 rounded-lg p-6 relative z-10 h-full group-hover:border-purple-500/40 transition-all duration-300">
+                                <div class="flex flex-col h-full">
+                                    <div class="flex items-center mb-4">
+                                        <div class="w-10 h-10 rounded bg-purple-900/60 flex items-center justify-center mr-3 group-hover:bg-purple-800/70 transition-colors">
+                                            <svg class="w-5 h-5 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="font-medium text-lg text-purple-300 group-hover:text-purple-200 transition-colors">Text Matching</div>
+                                    </div>
+                                    <p class="text-gray-400 mb-4">Ratcliff algorithm for sophisticated text similarity detection .</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Feature 3 -->
+                        <div class="relative group">
+                            <div class="absolute inset-0 bg-cyan-500/5 rounded-lg opacity-0 group-hover:opacity-100 blur-sm transition-opacity"></div>
+                            <div class="bg-gradient-to-br from-gray-900 to-gray-950 border border-cyan-500/20 rounded-lg p-6 relative z-10 h-full group-hover:border-cyan-500/40 transition-all duration-300">
+                                <div class="flex flex-col h-full">
+                                    <div class="flex items-center mb-4">
+                                        <div class="w-10 h-10 rounded bg-cyan-900/60 flex items-center justify-center mr-3 group-hover:bg-cyan-800/70 transition-colors">
+                                            <svg class="w-5 h-5 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="font-medium text-lg text-cyan-300 group-hover:text-cyan-200 transition-colors">Image Analysis</div>
+                                    </div>
+                                    <p class="text-gray-400 mb-4">ORB+SSIM algorithms for detecting similar or manipulated images in documents.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Feature 4 -->
+                        <div class="relative group">
+                            <div class="absolute inset-0 bg-indigo-500/5 rounded-lg opacity-0 group-hover:opacity-100 blur-sm transition-opacity"></div>
+                            <div class="bg-gradient-to-br from-gray-900 to-gray-950 border border-indigo-500/20 rounded-lg p-6 relative z-10 h-full group-hover:border-indigo-500/40 transition-all duration-300">
+                                <div class="flex flex-col h-full">
+                                    <div class="flex items-center mb-4">
+                                        <div class="w-10 h-10 rounded bg-indigo-900/60 flex items-center justify-center mr-3 group-hover:bg-indigo-800/70 transition-colors">
+                                            <svg class="w-5 h-5 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="font-medium text-lg text-indigo-300 group-hover:text-indigo-200 transition-colors">Web Crawling</div>
+                                    </div>
+                                    <p class="text-gray-400 mb-4">Comprehensive web crawling to detect potential sources of plagiarism.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Feature 5 -->
+                        <div class="relative group">
+                            <div class="absolute inset-0 bg-purple-500/5 rounded-lg opacity-0 group-hover:opacity-100 blur-sm transition-opacity"></div>
+                            <div class="bg-gradient-to-br from-gray-900 to-gray-950 border border-purple-500/20 rounded-lg p-6 relative z-10 h-full group-hover:border-purple-500/40 transition-all duration-300">
+                                <div class="flex flex-col h-full">
+                                    <div class="flex items-center mb-4">
+                                        <div class="w-10 h-10 rounded bg-purple-900/60 flex items-center justify-center mr-3 group-hover:bg-purple-800/70 transition-colors">
+                                            <svg class="w-5 h-5 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="font-medium text-lg text-purple-300 group-hover:text-purple-200 transition-colors">Detailed Reports</div>
+                                    </div>
+                                    <p class="text-gray-400 mb-4">Comprehensive reports highlighting plagiarized content with similarity percentages and source-list.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section (How It Works) -->
+        <section id="about" class="min-h-screen flex items-center relative py-20">
+            <div class="container mx-auto px-6">
+                <div class="max-w-5xl mx-auto">
+                    <div class="text-center mb-12">
+                        <div class="inline-block mb-3">
+                            <div class="text-xs text-cyan-400 tracking-widest uppercase mb-1">Technology</div>
+                            <div class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">How It Works</div>
+                        </div>
+                        <div class="w-20 h-1 bg-gradient-to-r from-cyan-500 to-indigo-500 mx-auto"></div>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-8 items-center mb-16">
+                        <div class="relative group">
+                            <div class="absolute inset-0 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-xl blur-sm group-hover:bg-indigo-500/30 transition-all duration-500"></div>
+                            <div class="relative bg-white/70 backdrop-blur-lg border border-indigo-500/20 p-6 rounded-xl shadow-xl group-hover:border-indigo-500/40 transition-all duration-300">
+                                <div class="flex flex-col">
+                                    <div class="font-medium text-xl text-black mb-3">Text Analysis with Ratcliff Algorithm</div>
+                                    <p class="text-gray-400 mb-4">Our system uses the Ratcliff/Obershelp pattern recognition algorithm to measure text similarity. This algorithm computes the similarity between two strings as:</p>
+                                    <div class="bg-gray-800/50 p-4 rounded-lg mb-4 font-mono text-sm">
+                                        similarity = (2 × number of matching characters) / (length of string1 + length of string2)
+                                    </div>
+                                    <p class="text-gray-400">The algorithm finds the longest common substring, then recursively applies itself to the prefixes and suffixes of the strings for more accurate matching than simple string comparison.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative h-full flex items-center justify-center">
+                            <div class="w-full h-64 bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl flex items-center justify-center border border-indigo-500/20">
+                                <div class="text-center p-4">
+                                    <div class="text-cyan-400 mb-2">Text Similarity Process</div>
+                                    <div class="text-gray-400 text-sm">
+                                        <div class="mb-1">1. Extract text from PDF</div>
+                                        <div class="mb-1">2. Pre-process (clean text, normalize)</div>
+                                        <div class="mb-1">3. Compare with online text data using Ratcliff</div>
+                                        <div>4. Calculate similarity score</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                        <div class="relative h-full flex items-center justify-center order-1 md:order-2">
+                            <div class="w-full h-64 bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl flex items-center justify-center border border-purple-500/20">
+                                <div class="text-center p-4">
+                                    <div class="text-purple-400 mb-2">Image Matching Process</div>
+                                    <div class="text-gray-400 text-sm">
+                                        <div class="mb-1">1. Extract images from PDF</div>
+                                        <div class="mb-1">2. Detect keypoints with ORB/SSIM</div>
+                                        <div class="mb-1">3. Compute descriptors</div>
+                                        <div>4. Match features across images</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative group order-2 md:order-1">
+                            <div class="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-cyan-500/20 rounded-xl blur-sm group-hover:bg-purple-500/30 transition-all duration-500"></div>
+                            <div class="relative bg-white/70 backdrop-blur-lg border border-purple-500/20 p-6 rounded-xl shadow-xl group-hover:border-purple-500/40 transition-all duration-300">
+                                <div class="flex flex-col">
+                                    <div class="font-medium text-xl text-black mb-3">Image Matching with ORB+SSIM</div>
+                                    <p class="text-gray-400 mb-4">For image plagiarism detection, we combine ORB (Oriented FAST and Rotated BRIEF) and SSIM (Structural Similarity Index Measure) algorithms:</p>
+                                    <div class="bg-gray-800/50 p-4 rounded-lg mb-4 font-mono text-sm">
+                                        ORB: Fast keypoint detection + rotation-aware descriptors<br>
+                                        SSIM: works by comparing the luminance, contrast, and structure of two images to quantify their visual similarity on a scale from -1 to 1.
+                                    </div>
+                                    <p class="text-gray-400">This hybrid approach provides both speed (from ORB) and accuracy (from SSIM), detecting manipulated or copied images even with transformations like rotation, scaling, or partial occlusion.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white/80 backdrop-blur-lg border-t border-gray-800">
+        <div class="container mx-auto px-6 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <div class="relative mr-2">
+                        <div class="absolute inset-0 bg-cyan-400/30 rounded-md blur-sm"></div>
+                        <div class="w-8 h-8 rounded-md bg-gradient-to-br from-indigo-600 to-purple-600 border border-indigo-400/30 flex items-center justify-center relative shadow-lg shadow-indigo-800/20">
+                            <div class="absolute inset-[2px] bg-white rounded-[3px] flex items-center justify-center overflow-hidden">
+                                <div class="absolute inset-0 bg-gradient-to-br from-indigo-900/20 to-purple-900/20"></div>
+                                <div class="font-bold text-xs bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">FD</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-lg font-medium bg-gradient-to-r from-indigo-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent flex items-center">
+                        PlagDetect
+                    </div>
+                </div>
+                
+                <div class="flex justify-center mb-4 md:mb-0">
+                    <a href="#home" class="text-black-400 hover:text-cyan-400 mx-2 transition-colors">Home</a>
+                    <a href="#about" class="text-black-400 hover:text-cyan-400 mx-2 transition-colors">About</a>
+                    <a href="#features" class="text-black-400 hover:text-cyan-400 mx-2 transition-colors">features</a>
+                     <a href="#demo" class="text-black-400 hover:text-cyan-400 mx-2 transition-colors">Check plagiarism</a>
+                </div>
+                
+                <div class="flex space-x-3">
+                    <a href="#" class="w-8 h-8 rounded-full bg-indigo-900/50 flex items-center justify-center text-black hover:bg-indigo-800 transition-colors">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path>
+                        </svg>
+                    </a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-indigo-900/50 flex items-center justify-center text-black hover:bg-indigo-800 transition-colors">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path>
+                        </svg>
+                    </a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-indigo-900/50 flex items-center justify-center text-black hover:bg-indigo-800 transition-colors">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="text-center text-black-500 text-sm mt-8">
+                © 2025 PlagDetect. All rights reserved.
+            </div>
+        </div>
+    </footer>
+<script>
+  tailwind = {
+    disableExperimentalWarning: true,
+    theme: {
+      extend: {
+        // Optional: Add customizations here
+      }
+    }
+  };
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+
+    
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Safe DOM selection (scoped)
+  const navbar = document.getElementById('navbar');
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const navLinks = document.querySelectorAll('nav .nav-link');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+  const scrollSections = document.querySelectorAll('main > section'); // Avoid interfering with tab panels
+  const bgElements = document.querySelectorAll('.fixed > div');
+
+  // Mobile Menu Toggle
+  if (mobileMenuButton && mobileMenu) {
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenuButton.classList.toggle('active');
+      mobileMenu.classList.toggle('open');
+      mobileMenu.style.height = mobileMenu.classList.contains('open') ? `${mobileMenu.scrollHeight}px` : '0';
+    });
+  }
+
+  // Close mobile menu when link clicked
+  mobileNavLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenuButton?.classList.remove('active');
+      mobileMenu?.classList.remove('open');
+      mobileMenu.style.height = '0';
+    });
+  });
+
+  // Navbar scroll effect
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      navbar?.classList.add('scrolled');
+    } else {
+      navbar?.classList.remove('scrolled');
+    }
+    highlightCurrentSection();
+  });
+
+  // Smooth scroll for nav links
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      const targetId = link.getAttribute('href');
+      if (targetId?.startsWith('#')) {
+        const targetSection = document.querySelector(targetId);
+        if (targetSection) {
+          e.preventDefault();
+          const offsetTop = targetSection.offsetTop - 70;
+          window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+
+          // Optional highlight effect
+          targetSection.classList.add('section-highlight');
+          setTimeout(() => targetSection.classList.remove('section-highlight'), 1000);
+        }
+      }
+    });
+  });
+
+  // Highlight active nav item
+  function highlightCurrentSection() {
+    let current = '';
+    scrollSections.forEach(section => {
+      const sectionTop = section.offsetTop - 100;
+      const sectionHeight = section.offsetHeight;
+      if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+        current = section.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${current}`) {
+        link.classList.add('active');
+      }
+    });
+
+    mobileNavLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${current}`) {
+        link.classList.add('active');
+      }
+    });
+  }
+
+  // Reveal animations for hero/feature sections only (not input tabs)
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('section-visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  scrollSections.forEach(section => {
+    section.classList.add('section-hidden');
+    observer.observe(section);
+  });
+
+  // Initial section highlight
+  highlightCurrentSection();
+
+  // Hero text animation
+  setTimeout(() => {
+    const headerText = document.querySelector('.text-6xl');
+    if (headerText) {
+      headerText.style.opacity = 1;
+      headerText.style.transform = 'translateY(0)';
+    }
+  }, 300);
+});
+</script>
+
+
+</body>
+</html>

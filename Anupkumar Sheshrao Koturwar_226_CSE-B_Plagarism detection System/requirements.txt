@@ -1,0 +1,13 @@
+flask
+requests
+nltk
+beautifulsoup4
+PyPDF2
+pymupdf               # for PDF image/text extraction (fitz)
+opencv-python         # image comparison
+scikit-image          # for SSIM image similarity
+Pillow                # for image processing
+reportlab             # for PDF report generation
+matplotlib            # for generating pie/bar charts
+qrcode                # for optional report QR codes
+gunicorn

@@ -1,0 +1,125 @@
+[2025-06-24 15:03:23.218718] 🚀 Running advanced plagiarism check
+[2025-06-24 15:03:23.233773] [Chunk Start] Processing chunk 0
+[2025-06-24 15:03:23.239793] [Query] Chunk 0 → THE GROWING NEED FOR CYBERSECURITY IN A CONNECTED WORLD #1 – The Growing Need for Cybersecurity cybersecurity is the practice of protecting people, systems and data from cyberattacks by using various technologies, processes and policies. At the enterprise 
+[2025-06-24 15:03:23.239793] [Chunk Start] Processing chunk 15
+[2025-06-24 15:03:23.250119] [Chunk Start] Processing chunk 30
+[2025-06-24 15:03:23.251113] [Query] Chunk 15 → These cyberattacks are usually aimed at accessing, changing, or destroying sensitive information; extorting money from users; or interrupting normal business processes. Implementing effective cybersecurity measures is particularly challenging today because
+[2025-06-24 15:03:23.252106] [Chunk Start] Processing chunk 45
+[2025-06-24 15:03:23.257167] [Query] Chunk 30 → Threats such as ransomware, phishing, and politically driven attacks have evolved in both volume and complexity. Cybersecurity has therefore transcended the bounds of traditional IT departments, becoming a pillar of global resilience. Its role now spans ac
+[2025-06-24 15:03:23.258108] [Query] Chunk 45 → Financial entities such as banks, trading platforms, and insurance companies are under constant siege from digital criminals due to the high -value data and transactional information they manage. Threat actors often employ long -term infiltration strategie
+[2025-06-24 15:03:23.258108] [Chunk Start] Processing chunk 75
+[2025-06-24 15:03:23.262407] [Chunk Start] Processing chunk 90
+[2025-06-24 15:03:23.267401] [Query] Chunk 75 → Non -compliance can result in hefty penalties and reputational damage. Cybersecurity is no longer merely a technical obligation —it is now embedded in the legal frameworks of most countries. Data protection regulations like the EU’s General Data Protection
+[2025-06-24 15:03:23.268406] [Query] Chunk 90 → #9 – Zero Trust Architecture and Its Importance Zero Trust is a security concept centered on the belief that organizations should not automatically trust anything inside or outside its perimeters and instead must verify anything and everything trying to co
+[2025-06-24 15:03:23.268406] [Query] Chunk 60 → In many cybersecurity breaches, the weakest link is not the system, but the user. Social engineering exploits human psychology, manipulating people into unintentionally providing access to attackers. The se tactics might include an urgent email pretending 
+[2025-06-24 15:03:23.276439] [Chunk Start] Processing chunk 105
+[2025-06-24 15:03:23.282404] [Query] Chunk 105 → Employees accessing sensitive company data from personal devices and unsecured home networks increase the risk of cyberattacks. Organizations must adapt by implementing VPNs, endpoint security, an d employee training. The global shift toward remote and hyb
+[2025-06-24 15:03:27.223162] [Skipped Slow Domain] https://pmc.ncbi.nlm.nih.gov/articles/PMC8059789/
+[2025-06-24 15:03:29.389167] [Match] https://www.mtu.edu/computing/cybersecurity/ | Similarity: 21.58%
+[2025-06-24 15:03:29.579267] [Match] https://www.ibm.com/think/topics/cybersecurity | Similarity: 44.57%
+[2025-06-24 15:03:29.641053] [Snippet] bersecurity is the practice of protecting systems, networks, and programs from digital attacks. These cyberattacks are usually aimed at accessing, cha...
+[2025-06-24 15:03:29.988538] [Snippet] ta from cyberattacks by using various technologies, processes and policies. At the enterprise level, cybersecurity is key to overall risk management s...
+[2025-06-24 15:03:30.396723] [Skipped Slow Domain] https://www.dhs.gov/topics/cybersecurity
+[2025-06-24 15:03:35.979865] [Skipped Slow Domain] https://nvlpubs.nist.gov/nistpubs/specialpublications/NIST.SP.800-207.pdf
+[2025-06-24 15:03:36.059893] [Match] https://www.linkedin.com/posts/freed0m_remote-work-a-ticking-time-bomb-waiting-activity-7234068725488861185-Cm3D | Similarity: 20.16%
+[2025-06-24 15:03:36.823867] [Snippet] Aug 26, 2024 ... Employees might use personal devices or unsecured networks, increasing the risk of unauthorized access and data breaches. These ......
+[2025-06-24 15:03:37.354793] [Match] https://www.cisco.com/site/us/en/learn/topics/security/what-is-cybersecurity.html | Similarity: 30.96%
+[2025-06-24 15:03:37.420126] [Snippet] s cybersecurity all about? Cybersecurity is the practice of protecting systems, networks, and programs from digital attacks. These cyberattacks are us...
+[2025-06-24 15:05:15.200598] ✅ Final plagiarism: 5.06% from 4 source(s)
+[2025-06-24 15:09:18.920226] 🚀 Running advanced plagiarism check
+[2025-06-24 15:09:18.992604] [Chunk Start] Processing chunk 0
+[2025-06-24 15:09:18.998082] [Query] Chunk 0 → The International Organization for Standardization (ISO) developed the Open Systems Interconnection (OSI) model, which allows different communication systems to communicate via standard protocols. In layman's terms, the OSI establishes a standard for compu
+[2025-06-24 15:09:25.537712] ✅ Final plagiarism: 0.0% from 0 source(s)
+[2025-06-24 15:09:30.958726] 🚀 Running advanced plagiarism check
+[2025-06-24 15:09:30.973716] ✅ Final plagiarism: 0.0% from 0 source(s)
+[2025-06-24 15:10:41.383862] 🚀 Running advanced plagiarism check
+[2025-06-24 15:10:41.402916] [Chunk Start] Processing chunk 0
+[2025-06-24 15:10:41.405864] [Query] Chunk 0 → The OSI Security Architecture is internationally recognized and provides a standardized technique for deploying security measures within an organization. It focuses on three major concepts: security attacks, security mechanisms, and security services, whic
+[2025-06-24 15:10:42.929348] [Match] https://www.geeksforgeeks.org/computer-networks/osi-security-architecture/ | Similarity: 90.93%
+[2025-06-24 15:10:42.931343] [Snippet] cture Last Updated : 13 Feb, 2025 Comments Improve Suggest changes Like Article Like Report The OSI Security Architecture is internationally recognize...
+[2025-06-24 15:10:48.568048] [Match] https://ce.snscourseware.org/files/1725380056.pdf | Similarity: 38.69%
+[2025-06-24 15:10:48.569029] [Snippet] The OSI Security Architecture is internationally recognized and provides a standardized technique for deploying security measures within an organizati...
+[2025-06-24 15:10:48.875339] ✅ Final plagiarism: 100.0% from 2 source(s)
+[2025-06-24 15:16:39.260891] 🚀 Running advanced plagiarism check
+[2025-06-24 15:16:39.342895] ✅ Final plagiarism: 100.0% from 2 source(s)
+[2025-06-24 15:17:18.314801] 🚀 Running advanced plagiarism check
+[2025-06-24 15:17:18.325796] ✅ Final plagiarism: 100.0% from 2 source(s)
+[2025-06-24 15:19:10.331342] 🚀 Running advanced plagiarism check
+[2025-06-24 15:19:10.360806] [Chunk Start] Processing chunk 0
+[2025-06-24 15:19:10.368265] [Query] Chunk 0 → The OSI Security Architecture is internationally recognized and provides a standardized technique for deploying security measures within an organization. It focuses on three major concepts: security attacks, security mechanisms, and security services, whic
+[2025-06-24 15:19:12.259297] [Match] https://www.geeksforgeeks.org/computer-networks/osi-security-architecture/ | Similarity: 90.93%
+[2025-06-24 15:19:12.261295] [Snippet] cture Last Updated : 13 Feb, 2025 Comments Improve Suggest changes Like Article Like Report The OSI Security Architecture is internationally recognize...
+[2025-06-24 15:19:20.088388] [Match] https://ce.snscourseware.org/files/1725380056.pdf | Similarity: 38.69%
+[2025-06-24 15:19:20.089389] [Snippet] The OSI Security Architecture is internationally recognized and provides a standardized technique for deploying security measures within an organizati...
+[2025-06-24 15:19:20.626436] ✅ Final plagiarism: 100.0% from 2 source(s)
+[2025-06-24 15:23:01.121573] 🚀 Running advanced plagiarism check
+[2025-06-24 15:23:01.175575] [Chunk Start] Processing chunk 0
+[2025-06-24 15:23:01.178575] [Query] Chunk 0 → The OSI Security Architecture is internationally recognized and provides a standardized technique for deploying security measures within an organization. It focuses on three major concepts: security attacks, security mechanisms, and security services, whic
+[2025-06-24 15:23:05.392822] [Match] https://www.geeksforgeeks.org/computer-networks/osi-security-architecture/ | Similarity: 90.93%
+[2025-06-24 15:23:05.392822] [Snippet] cture Last Updated : 13 Feb, 2025 Comments Improve Suggest changes Like Article Like Report The OSI Security Architecture is internationally recognize...
+[2025-06-24 15:23:13.154222] [Match] https://ce.snscourseware.org/files/1725380056.pdf | Similarity: 38.69%
+[2025-06-24 15:23:13.155220] [Snippet] The OSI Security Architecture is internationally recognized and provides a standardized technique for deploying security measures within an organizati...
+[2025-06-24 15:23:13.512220] ✅ Final plagiarism: 100.0% from 2 source(s)
+[2025-06-24 16:50:08.148921] 🚀 Running advanced plagiarism check
+[2025-06-24 16:50:08.287206] [Chunk Start] Processing chunk 15
+[2025-06-24 16:50:08.287206] [Chunk Start] Processing chunk 0
+[2025-06-24 16:50:08.297268] [Query] Chunk 15 → The Flask framework was used to build RESTful endpoints and handle user interactions, while HTML, CSS, and JavaScript formed the core of the frontend interface. Libraries such as difflib (for Ratcliff/Obershelp string matching), Scikit-learn (for TF-IDF an
+[2025-06-24 16:50:08.299336] [Chunk Start] Processing chunk 30
+[2025-06-24 16:50:08.317155] [Query] Chunk 0 → ii. iii. iv. v. Upload Document: the user can upload a document that they wish to check for plagiarism. The system will accept the uploaded file, which will then be used in the plagiarism checking process. Perform Plagiarism Check: Once the document is upl
+[2025-06-24 16:50:08.343217] [Query] Chunk 30 → System Environment: a. Operating System: Windows 10 b. Hardware Requirements: i. Processor: Dual-core 2.5GHz or higher ii. RAM: 4GB or more iii. Disk Space: 1GB
+[2025-06-24 16:50:10.872895] [No Results] Chunk 15 returned no items
+[2025-06-24 16:50:10.900305] [Query] Chunk 15 → The Flask framework was used to build RESTful endpoints and handle user interactions, while HTML, CSS, and JavaScript formed the core of the frontend interface. Libraries such as difflib (for Ratcliff/Obershelp string matching), Scikit-learn (for TF-IDF an
+[2025-06-24 16:50:16.662397] [No Results] Chunk 15 returned no items
+[2025-06-24 16:50:16.664418] [Query] Chunk 15 → The Flask framework was used to build RESTful endpoints and handle user interactions, while HTML, CSS, and JavaScript formed the core of the frontend interface. Libraries such as difflib (for Ratcliff/Obershelp string matching), Scikit-learn (for TF-IDF an
+[2025-06-24 16:50:22.053634] [Connection Error] https://www.autodesk.com/support/technical/article/caas/sfdcarticles/sfdcarticles/System-requirements-for-AutoCAD-2024-including-Specialized-Toolsets.html
+[2025-06-24 16:50:22.054630] [Connection Error] https://plagiarismcheck.org/
+[2025-06-24 16:50:22.055631] [Match] https://www.autodesk.com/support/technical/article/caas/sfdcarticles/sfdcarticles/System-requirements-for-AutoCAD-2024-including-Specialized-Toolsets.html | Similarity: 28.48%
+[2025-06-24 16:50:22.056631] [Snippet] Dec 13, 2024 ... 64-bit Microsoft® Windows® 11 and Windows 10 version 1809 or above. ... Disk Space: 1GB. AutoCAD Map 3D Additional Requirements (Wind...
+[2025-06-24 16:50:22.911131] [Retry 3] Chunk 15 error: HTTPSConnectionPool(host='www.googleapis.com', port=443): Read timed out. (read timeout=5) — waiting 4.5s
+[2025-06-24 16:50:25.361402] [Connection Error] https://h20195.www2.hp.com/v2/getpdf.aspx/c08109687.pdf
+[2025-06-24 16:50:25.364539] [Match] https://h20195.www2.hp.com/v2/getpdf.aspx/c08109687.pdf | Similarity: 33.88%
+[2025-06-24 16:50:25.368407] [Snippet] Jun 9, 2025 ... 32-bit Windows Operating Systems support up to 4 GB. 2M.2 storage supports compatible devices up to 80mm. PROCESSORS. Name. Ghz P-....
+[2025-06-24 16:50:27.413332] [Query] Chunk 15 → The Flask framework was used to build RESTful endpoints and handle user interactions, while HTML, CSS, and JavaScript formed the core of the frontend interface. Libraries such as difflib (for Ratcliff/Obershelp string matching), Scikit-learn (for TF-IDF an
+[2025-06-24 16:50:30.650033] [Timeout] https://lenovopress.lenovo.com/lp1049-thinksystem-sr630-server exceeded fetch time
+[2025-06-24 16:50:30.728074] [Match] https://lenovopress.lenovo.com/lp1049-thinksystem-sr630-server | Similarity: 24.15%
+[2025-06-24 16:50:30.822740] [Snippet] ... core performance service levels with more granular control over processor performance. ... memory resource in the operating system. This mode is c...
+[2025-06-24 16:50:38.427527] [No Results] Chunk 15 returned no items
+[2025-06-24 16:51:06.263358] [Connection Error] https://stackoverflow.com/questions/32513740/gradle-build-failure-could-not-open-proj-class-cache-for-build-file
+[2025-06-24 16:51:06.273290] ✅ Final plagiarism: 4.3% from 3 source(s)
+[2025-06-24 16:56:18.009050] 🚀 Running advanced plagiarism check
+[2025-06-24 16:56:18.034056] [Chunk Start] Processing chunk 0
+[2025-06-24 16:56:18.040034] [Query] Chunk 0 → The OSI Security Architecture is internationally recognized and provides a standardized technique for deploying security measures within an organization. It focuses on three major concepts: security attacks, security mechanisms, and security services, whic
+[2025-06-24 16:56:20.713837] [Match] https://www.geeksforgeeks.org/computer-networks/osi-security-architecture/ | Similarity: 92.33%
+[2025-06-24 16:56:20.716339] [Snippet] cture Last Updated : 13 Feb, 2025 Comments Improve Suggest changes Like Article Like Report The OSI Security Architecture is internationally recognize...
+[2025-06-24 16:56:33.588321] [Match] https://ce.snscourseware.org/files/1725380056.pdf | Similarity: 37.83%
+[2025-06-24 16:56:33.590323] [Snippet] The OSI Security Architecture is internationally recognized and provides a standardized technique for deploying security measures within an organizati...
+[2025-06-24 16:56:34.220555] ✅ Final plagiarism: 100.0% from 2 source(s)
+[2025-06-24 16:57:20.152634] 🚀 Running advanced plagiarism check
+[2025-06-24 16:57:20.174977] [Chunk Start] Processing chunk 0
+[2025-06-24 16:57:20.179002] [Query] Chunk 0 → THE GROWING NEED FOR CYBERSECURITY IN A CONNECTED WORLD #1 – The Growing Need for Cybersecurity cybersecurity is the practice of protecting people, systems and data from cyberattacks by using various technologies, processes and policies. At the enterprise 
+[2025-06-24 16:57:20.182999] [Chunk Start] Processing chunk 15
+[2025-06-24 16:57:20.187991] [Chunk Start] Processing chunk 30
+[2025-06-24 16:57:20.189981] [Chunk Start] Processing chunk 45
+[2025-06-24 16:57:20.192357] [Query] Chunk 15 → These cyberattacks are usually aimed at accessing, changing, or destroying sensitive information; extorting money from users; or interrupting normal business processes. Implementing effective cybersecurity measures is particularly challenging today because
+[2025-06-24 16:57:20.193380] [Chunk Start] Processing chunk 75
+[2025-06-24 16:57:20.197380] [Query] Chunk 30 → Threats such as ransomware, phishing, and politically driven attacks have evolved in both volume and complexity. Cybersecurity has therefore transcended the bounds of traditional IT departments, becoming a pillar of global resilience. Its role now spans ac
+[2025-06-24 16:57:20.198387] [Query] Chunk 45 → Financial entities such as banks, trading platforms, and insurance companies are under constant siege from digital criminals due to the high -value data and transactional information they manage. Threat actors often employ long -term infiltration strategie
+[2025-06-24 16:57:20.204382] [Query] Chunk 60 → In many cybersecurity breaches, the weakest link is not the system, but the user. Social engineering exploits human psychology, manipulating people into unintentionally providing access to attackers. The se tactics might include an urgent email pretending 
+[2025-06-24 16:57:20.204382] [Query] Chunk 75 → Non -compliance can result in hefty penalties and reputational damage. Cybersecurity is no longer merely a technical obligation —it is now embedded in the legal frameworks of most countries. Data protection regulations like the EU’s General Data Protection
+[2025-06-24 16:57:20.209386] [Chunk Start] Processing chunk 90
+[2025-06-24 16:57:20.216386] [Chunk Start] Processing chunk 105
+[2025-06-24 16:57:20.230377] [Query] Chunk 90 → #9 – Zero Trust Architecture and Its Importance Zero Trust is a security concept centered on the belief that organizations should not automatically trust anything inside or outside its perimeters and instead must verify anything and everything trying to co
+[2025-06-24 16:57:20.233388] [Query] Chunk 105 → Employees accessing sensitive company data from personal devices and unsecured home networks increase the risk of cyberattacks. Organizations must adapt by implementing VPNs, endpoint security, an d employee training. The global shift toward remote and hyb
+[2025-06-24 16:57:21.339172] [Skipped Slow Domain] https://nvlpubs.nist.gov/nistpubs/specialpublications/NIST.SP.800-207.pdf
+[2025-06-24 16:57:29.667143] [Match] https://www.ibm.com/think/topics/cybersecurity | Similarity: 44.57%
+[2025-06-24 16:57:29.840067] [Snippet] ta from cyberattacks by using various technologies, processes and policies. At the enterprise level, cybersecurity is key to overall risk management s...
+[2025-06-24 16:57:29.871992] [Skipped Slow Domain] https://pmc.ncbi.nlm.nih.gov/articles/PMC8059789/
+[2025-06-24 16:57:31.857979] [Match] https://www.mtu.edu/computing/cybersecurity/ | Similarity: 21.58%
+[2025-06-24 16:57:32.126750] [Snippet] bersecurity is the practice of protecting systems, networks, and programs from digital attacks. These cyberattacks are usually aimed at accessing, cha...
+[2025-06-24 16:57:39.276607] [Match] https://www.cisco.com/site/us/en/learn/topics/security/what-is-cybersecurity.html | Similarity: 30.96%
+[2025-06-24 16:57:39.403479] [Snippet] s cybersecurity all about? Cybersecurity is the practice of protecting systems, networks, and programs from digital attacks. These cyberattacks are us...
+[2025-06-24 16:57:41.361881] [Match] https://www.linkedin.com/posts/freed0m_remote-work-a-ticking-time-bomb-waiting-activity-7234068725488861185-Cm3D | Similarity: 20.16%
+[2025-06-24 16:57:41.676753] [Snippet] Aug 26, 2024 ... Employees might use personal devices or unsecured networks, increasing the risk of unauthorized access and data breaches. These ......
+[2025-06-24 16:59:01.656372] ✅ Final plagiarism: 5.06% from 4 source(s)
+[2025-07-10 12:44:49.227207] 🚀 Running advanced plagiarism check
+[2025-07-10 12:44:49.363599] ✅ Final plagiarism: 5.06% from 4 source(s)

@@ -1,0 +1,170 @@
+{
+  "c967fd91269df359ce9c6dd06ca24cc1": {
+    "matches": [
+      {
+        "matching_text": "cture Last Updated : 13 Feb, 2025 Comments Improve Suggest changes Like Article Like Report The OSI Security Architecture is internationally recognized and provides a standardized technique for deploying security measures within an organization. It focuses on three major concepts: security attacks, security mechanisms, and security services, which are critical in protecting data and communication processes. In this article, we will discuss OSI Security Architecture. The OSI model can be considered a universal language for computer networking. It is based on the concept of divide and conquer, it splits up the communication system into 7 abstract layers, and the layer is stacked upon the previous layer. OSI model has seven layers which are as follows: The Physical Layer The Data Link Layer T",
+        "source": "https://www.geeksforgeeks.org/computer-networks/osi-security-architecture/",
+        "similarity": 0.9093387866394002,
+        "chunk_info": {
+          "text": "The OSI Security Architecture is internationally recognized and provides a standardized technique for deploying security measures within an organization. It focuses on three major concepts: security attacks, security mechanisms, and security services, which are critical in protecting data and communication processes. In this article, we will discuss OSI Security Architecture. The OSI model can be considered a universal language for computer networking. It is based on the concept of divide and conquer, it splits up the communication system into 7 abstract layers, and the layer is stacked upon the previous layer. OSI model has seven layers which are as follows:",
+          "start_idx": 0,
+          "sentence_count": 6
+        }
+      },
+      {
+        "matching_text": "The OSI Security Architecture is internationally recognized and provides a standardized technique for deploying security measures within an organization. It ...",
+        "source": "https://ce.snscourseware.org/files/1725380056.pdf",
+        "similarity": 0.38694074969770254,
+        "chunk_info": {
+          "text": "The OSI Security Architecture is internationally recognized and provides a standardized technique for deploying security measures within an organization. It focuses on three major concepts: security attacks, security mechanisms, and security services, which are critical in protecting data and communication processes. In this article, we will discuss OSI Security Architecture. The OSI model can be considered a universal language for computer networking. It is based on the concept of divide and conquer, it splits up the communication system into 7 abstract layers, and the layer is stacked upon the previous layer. OSI model has seven layers which are as follows:",
+          "start_idx": 0,
+          "sentence_count": 6
+        }
+      }
+    ],
+    "success": true
+  },
+  "32094b6bf74570e6b7ea82ea3d311def": {
+    "matches": [
+      {
+        "matching_text": "Dec 13, 2024 ... 64-bit Microsoft® Windows® 11 and Windows 10 version 1809 or above. ... Disk Space: 1GB. AutoCAD Map 3D Additional Requirements (Windows Only) ...",
+        "source": "https://www.autodesk.com/support/technical/article/caas/sfdcarticles/sfdcarticles/System-requirements-for-AutoCAD-2024-including-Specialized-Toolsets.html",
+        "similarity": 0.2848297213622291,
+        "chunk_info": {
+          "text": "System Environment: a. Operating System: Windows 10 b. Hardware Requirements: i. Processor: Dual-core 2.5GHz or higher ii. RAM: 4GB or more iii. Disk Space: 1GB",
+          "start_idx": 30,
+          "sentence_count": 3
+        }
+      },
+      {
+        "matching_text": "Jun 9, 2025 ... 32-bit Windows Operating Systems support up to 4 GB. 2M.2 storage supports compatible devices up to 80mm. PROCESSORS. Name. Ghz P-.",
+        "source": "https://h20195.www2.hp.com/v2/getpdf.aspx/c08109687.pdf",
+        "similarity": 0.33876221498371334,
+        "chunk_info": {
+          "text": "System Environment: a. Operating System: Windows 10 b. Hardware Requirements: i. Processor: Dual-core 2.5GHz or higher ii. RAM: 4GB or more iii. Disk Space: 1GB",
+          "start_idx": 30,
+          "sentence_count": 3
+        }
+      },
+      {
+        "matching_text": "... core performance service levels with more granular control over processor performance. ... memory resource in the operating system. This mode is considered ...",
+        "source": "https://lenovopress.lenovo.com/lp1049-thinksystem-sr630-server",
+        "similarity": 0.24148606811145512,
+        "chunk_info": {
+          "text": "System Environment: a. Operating System: Windows 10 b. Hardware Requirements: i. Processor: Dual-core 2.5GHz or higher ii. RAM: 4GB or more iii. Disk Space: 1GB",
+          "start_idx": 30,
+          "sentence_count": 3
+        }
+      }
+    ],
+    "success": true
+  },
+  "d95e98035459fae88e962d77a6303dcd": {
+    "matches": [],
+    "success": false
+  },
+  "1ac40bae65cda0a9a4ce00670e7df50d": {
+    "matches": [],
+    "success": true
+  },
+  "4f30d2e0842f83122c95b0c78e6f80b8": {
+    "matches": [
+      {
+        "matching_text": "cture Last Updated : 13 Feb, 2025 Comments Improve Suggest changes Like Article Like Report The OSI Security Architecture is internationally recognized and provides a standardized technique for deploying security measures within an organization. It focuses on three major concepts: security attacks, security mechanisms, and security services, which are critical in protecting data and communication processes. In this article, we will discuss OSI Security Architecture. The OSI model can be considered a universal language for computer networking. It is based on the concept of divide and conquer, it splits up the communication system into 7 abstract layers, and the layer is stacked upon the previous layer. OSI model has seven layers which are as follows: The Physical Layer The Data Link Layer T",
+        "source": "https://www.geeksforgeeks.org/computer-networks/osi-security-architecture/",
+        "similarity": 0.9232839838492598,
+        "chunk_info": {
+          "text": "The OSI Security Architecture is internationally recognized and provides a standardized technique for deploying security measures within an organization. It focuses on three major concepts: security attacks, security mechanisms, and security services, which are critical in protecting data and communication processes. In this article, we will discuss OSI Security Architecture. The OSI model can be considered a universal language for computer networking. It is based on the concept of divide and conquer, it splits up the communication system into 7 abstract layers, and the layer is stacked upon the previous layer. OSI model has seven layers which are as follows: The Physical Layer",
+          "start_idx": 0,
+          "sentence_count": 6
+        }
+      },
+      {
+        "matching_text": "The OSI Security Architecture is internationally recognized and provides a standardized technique for deploying security measures within an organization. It ...",
+        "source": "https://ce.snscourseware.org/files/1725380056.pdf",
+        "similarity": 0.37825059101654845,
+        "chunk_info": {
+          "text": "The OSI Security Architecture is internationally recognized and provides a standardized technique for deploying security measures within an organization. It focuses on three major concepts: security attacks, security mechanisms, and security services, which are critical in protecting data and communication processes. In this article, we will discuss OSI Security Architecture. The OSI model can be considered a universal language for computer networking. It is based on the concept of divide and conquer, it splits up the communication system into 7 abstract layers, and the layer is stacked upon the previous layer. OSI model has seven layers which are as follows: The Physical Layer",
+          "start_idx": 0,
+          "sentence_count": 6
+        }
+      }
+    ],
+    "success": true
+  },
+  "ab618bb59841e7ad8fa5835aa76533ac": {
+    "matches": [
+      {
+        "matching_text": "Aug 26, 2024 ... Employees might use personal devices or unsecured networks, increasing the risk of unauthorized access and data breaches. These ...",
+        "source": "https://www.linkedin.com/posts/freed0m_remote-work-a-ticking-time-bomb-waiting-activity-7234068725488861185-Cm3D",
+        "similarity": 0.20162016201620162,
+        "chunk_info": {
+          "text": "Employees accessing sensitive company data from personal devices and unsecured home networks increase the risk of cyberattacks. Organizations must adapt by implementing VPNs, endpoint security, an d employee training. The global shift toward remote and hybrid work environments has reshaped cybersecurity strategies. Employees now access corporate systems from diverse locations using personal devices and varying internet security levels. This decentralization introduces w eak points in data access, software integrity, and endpoint safety. Cybercriminals capitalize on these vulnerabilities, targeting home routers, unsecured Wi -Fi, and phishing campaigns tailored to remote users. To protect against these evolving risks, compa nies must deploy robust Virtual Private Networks (VPNs), enforce Multi -Factor Authentication (MFA), implement mobile device management (MDM), and foster a security -first mindset through regular employee training and simulations.",
+          "start_idx": 105,
+          "sentence_count": 7
+        }
+      }
+    ],
+    "success": true
+  },
+  "3fa269b96521d21ce329c2906ea091b8": {
+    "matches": [],
+    "success": true
+  },
+  "8bb0e6def63886e4f6dcd334e5edc95a": {
+    "matches": [],
+    "success": true
+  },
+  "52486066b67140f956ce9ee111d0be6d": {
+    "matches": [
+      {
+        "matching_text": "ta from cyberattacks by using various technologies, processes and policies. At the enterprise level, cybersecurity is key to overall risk management strategy, and specifically, cyber risk management . Common cybersecurity threats include ransomware and other malware , phishing scams, data theft and more recently, attacks powered by artificial intelligence (AI). As cyberthreats grow in sophistication and frequency, organizations are increasing their investments in prevention and mitigation. The International Data Corporation (IDC) projects that security spending will reach USD 377 billion by 2028. 1 Cybersecurity Trends for 2025 and Beyond This evolving threat landscape has also fueled growth in the cybersecurity job market. The US Bureau of Labor Statistics projects that “employment of inf",
+        "source": "https://www.ibm.com/think/topics/cybersecurity",
+        "similarity": 0.44574616457461647,
+        "chunk_info": {
+          "text": "THE GROWING NEED FOR CYBERSECURITY IN A CONNECTED WORLD #1 – The Growing Need for Cybersecurity cybersecurity is the practice of protecting people, systems and data from cyberattacks by using various technologies, processes and policies. At the enterprise level, cybersecurity is key to overall risk management strategy, and specifically, cyber risk management . Common cybersecurity threats include ransomware and other malware , phishing scams, data theft and more recently, attacks powered by artificial intelligence (AI). As cyberthreats grow in sophistication and frequency, organizations are increasing their investments in prevention and mitigation. The International Data Corporation (IDC) projects that security spending will reach USD 377 billion by 2028.1 Cybersecurity Trends for 2025 and Beyond This evolving threat landscape has also fueled growth in the cybersecurity job market. The US Bureau of Labor Statistics projects that “employment of information security analysts is projected to grow 32% from 2022 to 2032, faster than the average for all occupations.”2 Why is cybersecurity important? Cyberattacks and cybercrime can disrupt, damage and destroy businesses, communities and lives. Security incidents can lead to identity theft, extortion and the loss of sensitive information, impacts that can significantly affect businesses and the economy. By one esti mate, cybercrime will cost the world economy USD 10.5 trillion per year by 2025.3 But a more pertinent question may be: “ Why is cybersecurity especially important right now?” Today, cybercriminals are using new technologies to their advantage. For instance, businesses are embracing cloud computing for efficiency and innovation. But bad actors view this advancement as an expanding attack surface ripe for exploitation. Bad actors are also leveraging the dark web . According to the IBM X -Force 2025 Threat Intelligence Index , sophisticated threat actors, including nation -states, are using the anonymity of the dark web to acquire new tools and resources. They are demonstrating never -before -seen levels of coordination, automation and prowess — elevating risk from data breaches to widescale disruption. Cybersecurity is the practice of protecting systems, networks, and programs from digital attacks. These cyberattacks are usually aimed at accessing, changing, or destroying sensitive information; extorting money from users; or interrupting normal business processes. Implementing effective cybersecurity measures is particularly challenging today because there are more devices than people, and attackers are becoming more innovative. A successful cybersecurity approach has multiple layers of protection spread across the computers, networks, programs, or data that one intends to keep safe.",
+          "start_idx": 0,
+          "sentence_count": 18
+        }
+      }
+    ],
+    "success": true
+  },
+  "d42b763eb2d972595d036795a17ef7a1": {
+    "matches": [],
+    "success": true
+  },
+  "00d6ebce7a4623e7f9766b603a485fe6": {
+    "matches": [],
+    "success": true
+  },
+  "26b31aed91a13cf67d63421313ae79d7": {
+    "matches": [],
+    "success": true
+  },
+  "c5fcfc8263f2c3d5a41d19047e905696": {
+    "matches": [
+      {
+        "matching_text": "bersecurity is the practice of protecting systems, networks, and programs from digital attacks. These cyberattacks are usually aimed at accessing, changing, or destroying sensitive information; extorting money from users; or interrupting normal business processes. Implementing effective cybersecurity measures is particularly challenging today because there are more devices than people, and attackers are becoming more innovative. Cybersecurity covers many aspects of the modern digital landscape, such as security measures to deliver data protection, information security, application security, network security, cloud security, endpoint device security, and the protection of people—staff, clients, customers, and public users of IT services. Recent technological advancements have opened up new ",
+        "source": "https://www.mtu.edu/computing/cybersecurity/",
+        "similarity": 0.2158495220474869,
+        "chunk_info": {
+          "text": "These cyberattacks are usually aimed at accessing, changing, or destroying sensitive information; extorting money from users; or interrupting normal business processes. Implementing effective cybersecurity measures is particularly challenging today because there are more devices than people, and attackers are becoming more innovative. A successful cybersecurity approach has multiple layers of protection spread across the computers, networks, programs, or data that one intends to keep safe. In an organization, the people, processes, and technology must all complement one another to create an effective defense from cyberattacks. A unified threat management system can automa te integrations across selected Cisco Security products and accelerate key security operations functions: detection, investigation, and remediation. Malware is a type of software designed to gain unauthorized access or to cause damage to a computer. Common types of malware include viruses, worms, Trojans, ransomware, and spyware. Phishing is the practice of sending fraudulent communications that appear to come from a reputable source, usually through email. The goal is to steal sensitive data like credit card and login information or to install malware on the victim’s machine. In many cases, phishing campaigns impersonate real brands, government agencie s, or banks to gain user trust. Firewalls, antivirus programs, and endpoint protection tools are essential in stopping these types of attacks, but human awareness is equally important.\" As the world becomes increasingly dependent on digital systems, the threat of cyberattacks grows. Every day, individuals, corporations, and governments are exposed to sophisticated cyber threats ranging from ransomware and phishing to state -sponsored hacki ng attempts. Cybersecurity is no longer just an IT issue — it is a critical component of national defence , economic stability, and individual privacy. With society’s increasing reliance on digital ecosystems, the vulnerability of users, corporations, and nations to cybercrime has escalated dramatically. Threats such as ransomware, phishing, and politically driven attacks have evolved in both volume and complexity. Cybersecurity has therefore transcended the bounds of traditional IT departments, becoming a pillar of global resilience. Its role now spans across public safety, data sovereignty, business continuity, and individual identity protection.",
+          "start_idx": 15,
+          "sentence_count": 18
+        }
+      },
+      {
+        "matching_text": "s cybersecurity all about? Cybersecurity is the practice of protecting systems, networks, and programs from digital attacks. These cyberattacks are usually aimed at accessing, changing, or destroying sensitive information; extorting money from users through ransomware ; or interrupting normal business processes. Implementing effective cybersecurity measures is particularly challenging today because there are more devices than people, and attackers are becoming more innovative. A successful cybersecurity posture has multiple layers of protection spread across the computers, networks, programs, or data that one intends to keep safe. In an organization, a unified threat management gateway system can automate integrations across products and accelerate key security operations functions: detect",
+        "source": "https://www.cisco.com/site/us/en/learn/topics/security/what-is-cybersecurity.html",
+        "similarity": 0.30958988590810976,
+        "chunk_info": {
+          "text": "These cyberattacks are usually aimed at accessing, changing, or destroying sensitive information; extorting money from users; or interrupting normal business processes. Implementing effective cybersecurity measures is particularly challenging today because there are more devices than people, and attackers are becoming more innovative. A successful cybersecurity approach has multiple layers of protection spread across the computers, networks, programs, or data that one intends to keep safe. In an organization, the people, processes, and technology must all complement one another to create an effective defense from cyberattacks. A unified threat management system can automa te integrations across selected Cisco Security products and accelerate key security operations functions: detection, investigation, and remediation. Malware is a type of software designed to gain unauthorized access or to cause damage to a computer. Common types of malware include viruses, worms, Trojans, ransomware, and spyware. Phishing is the practice of sending fraudulent communications that appear to come from a reputable source, usually through email. The goal is to steal sensitive data like credit card and login information or to install malware on the victim’s machine. In many cases, phishing campaigns impersonate real brands, government agencie s, or banks to gain user trust. Firewalls, antivirus programs, and endpoint protection tools are essential in stopping these types of attacks, but human awareness is equally important.\" As the world becomes increasingly dependent on digital systems, the threat of cyberattacks grows. Every day, individuals, corporations, and governments are exposed to sophisticated cyber threats ranging from ransomware and phishing to state -sponsored hacki ng attempts. Cybersecurity is no longer just an IT issue — it is a critical component of national defence , economic stability, and individual privacy. With society’s increasing reliance on digital ecosystems, the vulnerability of users, corporations, and nations to cybercrime has escalated dramatically. Threats such as ransomware, phishing, and politically driven attacks have evolved in both volume and complexity. Cybersecurity has therefore transcended the bounds of traditional IT departments, becoming a pillar of global resilience. Its role now spans across public safety, data sovereignty, business continuity, and individual identity protection.",
+          "start_idx": 15,
+          "sentence_count": 18
+        }
+      }
+    ],
+    "success": true
+  }
+}
