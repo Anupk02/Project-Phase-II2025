@@ -105,7 +105,7 @@ def highlight_matches(original_text, sources):
 
 # --- Config ---
 # Base directory of the project (portable)
-BASE_DIR = os.path.dirname(os.path.abspath(_file_))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Upload folder with full absolute path
 UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static', 'uploads')
@@ -489,15 +489,31 @@ from datetime import datetime
 
 
 def convert_html_highlight_to_reportlab(html):
-    soup = BeautifulSoup(html, 'html.parser')
+    """
+    Sanitize and convert highlight HTML to ReportLab-safe markup.
+    - Keeps only allowed tags (<a href="...">...</a>).
+    - Removes unsupported tags (<span>, <div>) and attributes (style, class, target).
+    """
+    from bs4 import BeautifulSoup
+
+    soup = BeautifulSoup(html, "html.parser")
+
+    # Remove unsupported <span> tags by unwrapping them
     for span in soup.find_all("span"):
-        style = span.get("style", "")
-        if "background-color:" in style:
-            color = style.split("background-color:")[1].split(";")[0].strip()
-            font = soup.new_tag("font", backcolor=color)
-            font.string = span.text
-            span.replace_with(font)
+        span.unwrap()
+
+    # Clean <a> tags — keep only the 'href' attribute
+    for a in soup.find_all("a"):
+        for attr in list(a.attrs):
+            if attr != "href":
+                del a[attr]
+
+    # For all other tags, remove unsupported attributes
+    for tag in soup.find_all(True):
+        tag.attrs = {k: v for k, v in tag.attrs.items() if k in ['href']}
+
     return str(soup)
+
 
 
 @app.route('/generate-report', methods=['POST'])
